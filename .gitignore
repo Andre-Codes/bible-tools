@@ -9,6 +9,19 @@ __pycache__/
 # C extensions
 *.so
 
+# IDE or editor-specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*~
+
+# Virtual Enviros
+/venv
+/venv*/
+venv/
+
 # Distribution / packaging
 bin/
 build/
