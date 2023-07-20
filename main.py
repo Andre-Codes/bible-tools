@@ -10,12 +10,12 @@ bible_df.head()
 # EXAMPLE return
 # Enter a verse id in format book-chapter-verse (John 3:16 = 43 003 016)
 # convert a verse ID into verse reference
-reference = tools.id_to_reference(bible_df, 40003010)
+reference = tools.id_to_reference(bible_df, 43003016)
 print(reference)
 
 # EXAMPLE find cross references
 reference_id = tools.reference_to_id(bible_df, "Job", 6, 7)
-cross_refs = tools.find_cross_references(bible_df, reference_id, format="clean")
+cross_refs = tools.find_cross_references(bible_df, reference_id, format_="str")
 bible_results = f"Main verse:\n{cross_refs[0]}\n\nCross references:\n{cross_refs[1]}"
 print(bible_results)
 

@@ -24,13 +24,13 @@ def reference_to_id(df, book, chapter, verse):
     return verse_id
 
 
-def find_cross_references(df, verse_id, format=None):
+def find_cross_references(df, verse_id, format_=None):
     # Find the rows where the verse ID is either the start or the end of a cross-reference
     cross_references = df[(df['cf_start'] == verse_id) | (df['cf_end'] == verse_id)]
     main_verse = get_verse(df, verse_id)
-    if format == "clean":
-        cross_references = format_verse(cross_references)
-        main_verse = format_verse(main_verse)
+    if format_ == "str":
+        cross_references = format_verse(cross_references, format_=format_)
+        main_verse = format_verse(main_verse, format_=format_)
     #     cross_references = cross_references[['Book_Name', 'Chapter', 'Verse', 'origin_text']].to_string(index=False)
     #     main_verse = main_verse[['Book_Name', 'Chapter', 'Verse', 'origin_text']].to_string(index=False)
     # # Return the resulting subset of the dataframe
@@ -70,16 +70,20 @@ def get_verse(df, verse_id):
     return verse
 
 
-def format_verse(verse):
-    verse = verse['Book_Name'] + ' ' + verse['Chapter'].astype(str) + ':' + verse['Verse'].astype(str) + ' ' + verse[
-        'origin_text']
-    return verse.to_string(index=False)
+def format_verse(verse, format_=None):
+    verse['Reference'] = verse['Book_Name'] + ' ' + verse['Chapter'].astype(str) + ':' + verse['Verse'].astype(str)
+    formatted_verse = verse[['Reference', 'origin_text']]
+    if format_ == 'str':
+        return formatted_verse.to_string(index=False)
+    else:
+        return formatted_verse
 
 
 def verse_search(df, word_list):
-    verse_match = df[df['origin_text'].apply(lambda x: len(list(set(word_list) & set(x))) > len(word_list) / 2)]
+    verse_match = df[df['origin_text'].apply(lambda verse: len(list(set(word_list) & set(verse))) > len(word_list) / 2)]
     verse_match = format_verse(verse_match)
     return verse_match
+
 
 # Explode the lists into separate rows
 # new_df = new_df.explode('origin_text')
