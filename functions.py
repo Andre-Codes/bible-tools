@@ -77,7 +77,7 @@ def format_verse(verse):
 
 
 def verse_search(df, word_list):
-    verse_match = df[df['Text'].apply(lambda x: len(list(set(word_list) & set(x))) > len(word_list) / 2)]
+    verse_match = df[df['origin_text'].apply(lambda x: len(list(set(word_list) & set(x))) > len(word_list) / 2)]
     verse_match = format_verse(verse_match)
     return verse_match
 
