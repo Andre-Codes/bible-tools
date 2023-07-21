@@ -2,10 +2,11 @@ import pandas as pd
 import functions as tools
 import gpt_service as gpt
 
-csv_path = r"C:\Users\havok\OneDrive\Python Projects\Data Science (general)\Datasets\the_bible\cleaned\verseID_map.csv"
+main_csv_path = r"C:\Users\havok\OneDrive\Python Projects\Data Science (general)\Datasets\the_bible\cleaned\verseID_map.csv"
+cf_csv_path = r"C:\Users\havok\OneDrive\Python Projects\Data Science (general)\Datasets\the_bible\cleaned\cf_all_merged.csv"
 
-bible_df = pd.read_csv(csv_path)
-bible_df.head()
+bible_df = pd.read_csv(main_csv_path)
+crossref_df = pd.read_csv(cf_csv_path)
 
 # EXAMPLE return
 # Enter a verse id in format book-chapter-verse (John 3:16 = 43 003 016)
@@ -14,10 +15,10 @@ reference = tools.id_to_reference(bible_df, 43003016)
 print(reference)
 
 # EXAMPLE find cross references
-reference_id = tools.reference_to_id(bible_df, "Job", 6, 7)
-cross_refs = tools.find_cross_references(bible_df, reference_id, format_="str")
-bible_results = f"Main verse:\n{cross_refs[0]}\n\nCross references:\n{cross_refs[1]}"
-print(bible_results)
+reference_id = tools.reference_to_id(crossref_df, "John", 3, 16)
+cross_refs = tools.find_cross_references(crossref_df, reference_id)
+result = cross_refs[['Book_Name', 'Chapter', 'Verse', 'origin_text']]
+result.head()
 
 # EXAMPLE find matching verses given word list
 word_list = ["Jacob", "mercy", "love"]
