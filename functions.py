@@ -77,10 +77,11 @@ def format_verse(verse, format_=None):
         return formatted_verse
 
 
-def verse_search(df, word_list):
-    verse_match = df[df['origin_text'].apply(lambda verse: len(list(set(word_list) & set(verse))) > len(word_list) / 2)]
-    verse_match = format_verse(verse_match)
-    return verse_match
+def verse_search(df, word_list, min_match):
+    # match_count_threshold = len(word_list) / 1
+    df['match_ratio'] = df['origin_text'].apply(lambda verse: round(((sum(word in set(word_list) for word in set(verse)) / len(word_list)) * 100)), 0)
+    filtered_df = df[df['match_ratio'] >= min_match]
+    return filtered_df
 
 
 # Explode the lists into separate rows
