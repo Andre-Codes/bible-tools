@@ -10,8 +10,8 @@ crossref_df = pd.read_csv(cf_csv_path)
 
 ####################################
 # EXAMPLE - convert a verse ID into verse reference
-# Enter a verse id in format book-chapter-verse (John 3:16 = 43 003 016)
 
+# Enter a verse id in format book-chapter-verse (John 3:16 = 43 003 016)
 reference = tools.id_to_reference(bible_df, 43003016)  # Result: ('John', 3, 16, 'John 3:16')
 
 # Convert standard verse reference to its ID
