@@ -2,8 +2,8 @@ import pandas as pd
 import functions as tools
 import gpt_service as gpt
 
-main_csv_path = r"C:\Users\havok\OneDrive\Python Projects\Data Science (general)\Datasets\the_bible\cleaned\verseID_map.csv"
-cf_csv_path = r"C:\Users\havok\OneDrive\Python Projects\Data Science (general)\Datasets\the_bible\cleaned\cf_all_merged.csv"
+main_csv_path = "/verseID_map.csv"
+cf_csv_path = "/cf_all_merged.csv"
 
 bible_df = pd.read_csv(main_csv_path)
 crossref_df = pd.read_csv(cf_csv_path)
